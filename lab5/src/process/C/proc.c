@@ -8,7 +8,7 @@ void process_image_c(unsigned char *data, int width, int height, int channels, i
 
     for (size_t i = 0; i < pixel_count; i ++) {
 
-        unsigned char * pixel_data = data + (i * channels);
+        unsigned char* pixel_data = data + (i * channels);
 
         unsigned char r = pixel_data [0];
         unsigned char g = pixel_data [1];

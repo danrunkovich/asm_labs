@@ -56,9 +56,9 @@ int main (int argc, char** argv) {
 
     double elapsed = (end.tv_nsec - start.tv_nsec) / 1000;
 
-    printf ("<~~Время обработки -> %.15lf ms~~>\n", elapsed);
+    printf ("======Время обработки -> %.15lf ms======\n", elapsed);
 
-    printf ("Сохранение изображения -> %sn\n", output_path);
+    printf ("Сохранение изображения -> %s\n", output_path);
 
     FILE* f = fopen("timing/results_timing.txt", "a");
     if (f) {
