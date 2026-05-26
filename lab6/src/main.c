@@ -21,7 +21,7 @@
     #define PROCESS_FUNC process_image_asm_vector
     const char* impl_name = "ASM x86-64 vector";
 #else
-    #define PROCESS_FUNC proess_image_c
+    #define PROCESS_FUNC process_image_c
     const char* impl_name = "C";
 #endif
 
@@ -108,16 +108,18 @@ int main (int argc, char** argv) {
         // Если файл пустой, можно записать заголовок
         fseek(f, 0, SEEK_END);
         if (ftell(f) == 0) {
-            fprintf(f, "| Реализация | Оптимизация | Время (милисек) |\n");
-            fprintf(f, "|------------|-------------|-----------------|\n");
+            fprintf(f, "|    Реализация     | Оптимизация | Размер | Время (милисек) |\n");
+            fprintf(f, "|-------------------|-------------|--------|-----------------|\n");
         }
-        fprintf(f, "| %-10s | %-11s | %-15.6f |\n", impl_name, OPT_FLAGS, elapsed); // (-11) это выравнивание по левому краю
+        fprintf(f, "| %-17s | %-11s | %-6d | %-15.6f |\n", impl_name, OPT_FLAGS, width * height, elapsed); // (-11) это выравнивание по левому краю
         // + 11 минимальное количесвто символов (если <11 то будет дополняться пробелами)
         fclose(f);
     }
-    if (!stbi_write_jpg(output_path, width, height, channels, img_data, 1500)) {
+    if (!stbi_write_jpg(output_path, width, height, 1, gray_dst, 1500)) {
         fprintf (stderr, "Ошибка : не удалось сохранить изображение -> %s\n", output_path);
         stbi_image_free(img_data);
+        free (gray_dst);
+        free (gray_src);
         return 1;
     }
 
